@@ -1,0 +1,29 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 9999
+  adminConnectors:
+    - type: http
+      port: 9999
+
+logging:
+  level: INFO
+  loggers:
+    uk.gov.dvla: DEBUG
+  appenders:
+    - type: console
+      logFormat: "%-5level [%date] payment-service %thread %logger: %message%n%xException"
+
+paymentBrokerService:
+  endpoint: http://localhost:9999
+  adminEndpoint: http://localhost:9999
+  api:
+    channel: XXXX
+
+httpClient:
+  timeout: 10s
+  connectionTimeout: 2s
+  connectionRequestTimeout: 2s
+  retries: 3 # enables retries as well as setting the number of retries
+
+paymentProviderHealthCheckURL: http://localhost:9999/secure-payment-form/healthcheck
